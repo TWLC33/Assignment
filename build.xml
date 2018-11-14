@@ -7,8 +7,13 @@
 <!-- the Compile on Save feature is turned off for the project. -->
 <!-- You can turn off the Compile on Save (or Deploy on Save) setting -->
 <!-- in the project's Project Properties dialog box.-->
+catalog-order
+<project name="Prototype" default="default" basedir=".">
+    <description>Builds, tests, and runs the project Prototype.</description>
+
 <project name="Catalog_Maintenance" default="default" basedir=".">
     <description>Builds, tests, and runs the project Catalog Maintenance.</description>
+master
     <import file="nbproject/build-impl.xml"/>
     <!--
 
@@ -58,7 +63,11 @@
 
     An example of overriding the target for project execution could look like this:
 
+ catalog-order
+        <target name="run" depends="Prototype-impl.jar">
+
         <target name="run" depends="Catalog_Maintenance-impl.jar">
+ master
             <exec dir="bin" executable="launcher.exe">
                 <arg file="${dist.jar}"/>
             </exec>
