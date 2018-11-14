@@ -5,7 +5,7 @@
     */
 
 
-    package flower.arrangement.assignment;
+    package FlowerArrgAssg;
     import java.io.IOException;
     import java.util.Scanner;
     import java.util.List;
@@ -16,7 +16,7 @@
     *
     * @author user
     */
-    public class FlowerArrangementAssignment {
+    public class FlowerArrgAssg {
 
     /**
      * @param args the command line arguments
