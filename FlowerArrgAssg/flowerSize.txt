@@ -1,0 +1,5 @@
+Extra small Size,5.00,
+Small Size,6.50,
+Medium Size,8.00,
+Big Size,10.50,
+Extra Size,15.00,

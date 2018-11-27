@@ -1,0 +1,8 @@
+Stock,10.00,
+Statice,12.50,
+Snapdragons,10.50,
+Rose,15.00,
+Poms,10.50,
+Delphinium,10.00,
+Dianthus,13.00,
+Alstroemeria,12.00,
