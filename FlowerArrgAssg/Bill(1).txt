@@ -1,0 +1,71 @@
+Date and Time :2018/11/28 02:38:52
+
+Itemized bill for customized floral arrangement
+
+|Flower Arrangement Style                 :Price                                     |
+
+
+
+==========================================================================================
+
+|Elliptical flower arrangement            :RM                                     17.0|
+
+
+=======================================
+Flower Arrangement Size
+=======================================
+
+
+|Extra Size                               :RM                                     15.0|
+
+
+=======================================
+Selected Flower
+=======================================
+
+
+|Stock                                    :RM                                     10.0|
+
+
+
+
+|Statice                                  :RM                                     12.5|
+
+
+
+
+|Snapdragons                              :RM                                     10.5|
+
+
+=======================================
+Selected Accessories
+=======================================
+
+
+|Grapevine Wreath                         :RM                                     10.0|
+
+
+
+
+|Metal Wire Easel                         :RM                                      5.0|
+
+
+
+
+|Floral Wire                              :RM                                      7.5|
+
+
+=======================================
+Delivery Priority
+=======================================
+
+
+|express (highest priority)               :RM                                     15.0|
+
+
+
+==========================================================================================
+
+|Total Amount                             :RM                                    102.5|
+
+
