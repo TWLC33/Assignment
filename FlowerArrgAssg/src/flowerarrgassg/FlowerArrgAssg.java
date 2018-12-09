@@ -7,8 +7,7 @@
 
     package FlowerArrgAssg;
     import java.io.IOException;
-    import java.util.Scanner;
-    import java.util.List;
+    import java.util.Scanner; 
     import java.io.*;
     import java.text.DateFormat;
     import java.time.Instant;
@@ -27,7 +26,7 @@
     private static Double totalAmount=0.00;
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        CustomizedArrayListInterface<String> CustomizedFlowerOrder = new CustomizedArrayList();
+        ArrayList<String> CustomizedFlowerOrder = new ArrayList<>();
         ArrayList<String> ChosenFlower = new ArrayList<>();
         ArrayList<String> ChosenAccessories = new ArrayList<>();
         Scanner UserInput=new Scanner(System.in);
@@ -406,7 +405,7 @@
         ArrayList<String> ArrayFlower = new ArrayList<>();
         ArrayList<String> FlowerChosen = new ArrayList<>();
         ArrayList<Double> ArrayFlowerPrice = new ArrayList<>();
-        int CusFlower = 0,AddOnFlower,count=0,i;
+        int CusFlower = 0,AddOnFlower,count=0,i,FlowerRemove=0;
          Scanner UserInput=new Scanner(System.in);
        
         File CusFlowerFile= new File("flower.txt");		
@@ -443,6 +442,7 @@
         }
 
         System.out.print("\nEnter a number to select : ");
+        
          while(!UserInput.hasNextInt())
             {
                  System.out.printf("\ninput invalid(not a number),please enter a number : ");
@@ -460,14 +460,15 @@
             }
          }while(CusFlower<=0||CusFlower>i+1);
         
-        
-        totalAmount+=ArrayFlowerPrice.get(CusFlower-1);
-        FlowerChosen.add(ArrayFlower.get(CusFlower-1) +"|"+ ArrayFlowerPrice.get(CusFlower-1));
+      
+            totalAmount+=ArrayFlowerPrice.get(CusFlower-1);
+            FlowerChosen.add(ArrayFlower.get(CusFlower-1) +"|"+ ArrayFlowerPrice.get(CusFlower-1));
         
         System.out.println("1.add on flower");
+        System.out.println("2.Remove flower");
         }
         do{
-        System.out.println("any number to next");
+        System.out.println("any number to next(except 1 and 2)");
         System.out.print("Enter a number to select : ");
           while(!UserInput.hasNextInt())
             {
@@ -479,15 +480,60 @@
             {
                 System.out.println("\nEnter positive number\n");
                 System.out.println("1.add on flower");
+                System.out.println("2.Remove flower");
             }
           
          }while(AddOnFlower<=0);
+        if(AddOnFlower==1)
+        {
         count++;
+        }
+        else if(AddOnFlower==2)
+        {
+            do{
+             do{
+        System.out.println("\n\n-----Remove Selected flower------\n");
+        System.out.println("-----Remaining flower------\n");
+        System.out.println("==========================================================================");
+        System.out.printf("%-2s | %-40s | %-22s|\n","No","Flower Type","Price");
+        System.out.println("==========================================================================");
+        for(i=0;i<FlowerChosen.size();i++){
+            
+            System.out.printf("%-2s | %-40s |RM %-20s|\n",i+1,FlowerChosen.get(i).substring(0, FlowerChosen.get(i).indexOf("|")),FlowerChosen.get(i).substring( FlowerChosen.get(i).indexOf("|")+1, FlowerChosen.get(i).length()));
+        }
+         
+        System.out.println("enter 0 to quit");
+         System.out.println("enter -1 to next step");
+        System.out.print("Enter a number to remove : ");
+          while(!UserInput.hasNextInt())
+            {
+                 System.out.println("\ninput invalid(not a number),please enter a number\n");
+                 UserInput.next();
+            }
+        FlowerRemove= UserInput.nextInt();
+        if(FlowerRemove<-1)
+            {
+                System.out.println("\nEnter positive number\n");
+               
+            }
+        else if(FlowerRemove>i+1)
+        {
+            System.out.println("\nNumber that you enter out of range\n");
+        }
+          
+         }while(FlowerRemove<-1||FlowerRemove>i+1);
+             if(FlowerRemove>0&&FlowerRemove<=FlowerChosen.size())
+             {
+                count--;
+                FlowerChosen.remove(FlowerRemove-1);
+             }
+            }while(FlowerRemove>0&&FlowerRemove<=FlowerChosen.size()&&!FlowerChosen.isEmpty());
+        }
         if(count==5)
         {
             System.out.println("\nMaximum flower only 5!!!!!\n");
         }
-       }while(AddOnFlower==1&&count<=5);
+       }while((AddOnFlower==1||FlowerRemove!=-1)&&(count<=5||count<=0));
         return FlowerChosen;
 
 
@@ -497,7 +543,7 @@
         ArrayList<String> ArrayFlowerAccessories = new ArrayList<>();
         ArrayList<String> AccessoriesChosen = new ArrayList<>();
         ArrayList<Double> ArrayFlowerAccessoriesPrice = new ArrayList<>();
-        int CusFlowerAccessories,AddOnAccessories,count=0,i;
+        int CusFlowerAccessories,AddOnAccessories,count=0,i,AccessoriesRemove=0;
          Scanner UserInput=new Scanner(System.in);
        
         File CusFlowerAccessoriesFile= new File("Accessories.txt");		
@@ -552,10 +598,12 @@
         
             totalAmount+=ArrayFlowerAccessoriesPrice.get(CusFlowerAccessories-1);
             AccessoriesChosen.add(ArrayFlowerAccessories.get(CusFlowerAccessories-1)+"|"+ArrayFlowerAccessoriesPrice.get(CusFlowerAccessories-1));
+            
             System.out.println("1.add on flower Accessories");
+            System.out.println("2.Remove flower Accessories");
         }
         do{
-        System.out.println("any number to next");
+        System.out.println("any number to next(except 1 and 2)");
         System.out.print("Enter a number to select : ");
          while(!UserInput.hasNextInt())
             {
@@ -567,16 +615,61 @@
             {
                 System.out.println("\nEnter positive number\n");
                 System.out.println("1.add on flower Accessories");
+                System.out.println("2.remove flower Accessories");
                 
             }
           
          }while(AddOnAccessories<=0);
+        if(AddOnAccessories==1)
+        {
         count++;
+        } else if(AddOnAccessories==2)
+        {
+            do{
+             do{
+        System.out.println("\n\n-----Remove Selected flower Accessories------\n");
+        System.out.println("-----Remaining Accessories------\n");
+        System.out.println("==========================================================================");
+        System.out.printf("%-2s | %-40s | %-22s|\n","No","Flower Accessories","Price");
+        System.out.println("==========================================================================");
+        for(i=0;i<AccessoriesChosen.size();i++){
+            
+            System.out.printf("%-2s | %-40s |RM %-20s|\n",i+1,AccessoriesChosen.get(i).substring(0, AccessoriesChosen.get(i).indexOf("|")),AccessoriesChosen.get(i).substring( AccessoriesChosen.get(i).indexOf("|")+1, AccessoriesChosen.get(i).length()));
+        }
+         
+        System.out.println("enter 0 to quit");
+         System.out.println("enter -1 to next step");
+        System.out.print("Enter a number to remove : ");
+          while(!UserInput.hasNextInt())
+            {
+                 System.out.println("\ninput invalid(not a number),please enter a number\n");
+                 UserInput.next();
+            }
+        AccessoriesRemove= UserInput.nextInt();
+        if(AccessoriesRemove<-1)
+            {
+                System.out.println("\nEnter positive number\n");
+               
+            }
+        else if(AccessoriesRemove>i+1)
+        {
+            System.out.println("\nNumber that you enter out of range\n");
+        }
+          
+         }while(AccessoriesRemove<-1||AccessoriesRemove>i+1);
+             if(AccessoriesRemove>0&&AccessoriesRemove<=AccessoriesChosen.size())
+             {
+                count--;
+                AccessoriesChosen.remove(AccessoriesRemove-1);
+             }
+            }while(AccessoriesRemove>0&&AccessoriesRemove<=AccessoriesChosen.size()&&!AccessoriesChosen.isEmpty());
+        }
          if(count==3)
         {
             System.out.println("\nMaximum flower accessories only 3!!!!!\n");
         }
-        }while(AddOnAccessories==1&&count<=5);
+        }while((AddOnAccessories==1||AccessoriesRemove!=-1)&&(count<=3||count<=0));
+      
         return AccessoriesChosen;
         
     
