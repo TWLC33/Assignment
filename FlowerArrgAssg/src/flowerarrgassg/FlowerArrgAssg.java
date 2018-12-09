@@ -286,6 +286,7 @@
         }while(CusDeliveryPrority<=0||CusDeliveryPrority>i+1);
         
         totalAmount+=ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
+        
         return ArrayDeliveryPriority.get(CusDeliveryPrority-1) +"|"+ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
    }
 
