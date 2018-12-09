@@ -27,7 +27,7 @@
     private static Double totalAmount=0.00;
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        ArrayList<String> CustomizedFlowerOrder = new ArrayList<>();
+        CustomizedArrayListInterface<String> CustomizedFlowerOrder = new CustomizedArrayList();
         ArrayList<String> ChosenFlower = new ArrayList<>();
         ArrayList<String> ChosenAccessories = new ArrayList<>();
         Scanner UserInput=new Scanner(System.in);
