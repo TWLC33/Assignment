@@ -24,14 +24,15 @@
     /**
      * @param args the command line arguments
      */
-    public static Double totalAmount=0.00;
+    private static Double totalAmount=0.00;
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
+        ArrayList<String> CustomizedFlowerOrder = new ArrayList<>();
+        ArrayList<String> ChosenFlower = new ArrayList<>();
+        ArrayList<String> ChosenAccessories = new ArrayList<>();
         Scanner UserInput=new Scanner(System.in);
         int loginInput;
-        ArrayList<String> CustomizedFlowerOrder  = new ArrayList<String>();
-        ArrayList<String> ChosenFlower = new ArrayList<String>();
-         ArrayList<String> ChosenAccessories = new ArrayList<String>();
+       
         
         do{
             do{
@@ -70,7 +71,7 @@
                     break;
             case 2: System.out.println("customer only");
 
-                    int ConsumerInput,CusAccessories;
+                    int ConsumerInput;
                     do{
                         do{
                             ConsumerMenu();
@@ -108,86 +109,13 @@
 //                                    Delivery priority
                                     String ChosenDeliveryPriority = CustomizedDeliveryPriority();
                                     CustomizedFlowerOrder.add(ChosenDeliveryPriority);
-                             
-                                    System.out.println("\nItemized bill for customized floral arrangement\n");
-                                    System.out.printf("|%-40s :%-42s|\n","Flower Arrangement Style","Price");
-                                    System.out.println("==========================================================================================");
-                                    System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(0).substring(0, CustomizedFlowerOrder.get(0).indexOf("|")),CustomizedFlowerOrder.get(0).substring( CustomizedFlowerOrder.get(0).indexOf("|")+1, CustomizedFlowerOrder.get(0).length()));
-                                    System.out.println("\n=======================================\nFlower Arrangement Size\n=======================================");
-                                    System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(1).substring(0, CustomizedFlowerOrder.get(1).indexOf("|")),CustomizedFlowerOrder.get(1).substring( CustomizedFlowerOrder.get(1).indexOf("|")+1, CustomizedFlowerOrder.get(1).length()));
-                                    System.out.println("\n=======================================\nSelected Flower\n=======================================");
-                                    for(int i=0;i<ChosenFlower.size();i++)
-                                    {
-                                        
-                                        System.out.printf("|%-40s :RM %40s|\n",ChosenFlower.get(i).substring(0, ChosenFlower.get(i).indexOf("|")),ChosenFlower.get(i).substring( ChosenFlower.get(i).indexOf("|")+1, ChosenFlower.get(i).length()));
-                                    }
-                                    System.out.println("\n=======================================\nSelected Accessories\n=======================================");
-                                     for(int i=0;i<ChosenAccessories.size();i++)
-                                    {
-                                        
-                                        System.out.printf("|%-40s :RM %40s|\n",ChosenAccessories.get(i).substring(0, ChosenAccessories.get(i).indexOf("|")),ChosenAccessories.get(i).substring( ChosenAccessories.get(i).indexOf("|")+1, ChosenAccessories.get(i).length()));
-                                        
-                                    }
-                                    System.out.println("\n=======================================\nDelivery Priority\n=======================================");
-                                    System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
-                                    System.out.println("\n==========================================================================================");
-                                    System.out.printf("|%-40s :RM %40s|\n","Total Amount",totalAmount);
+                                    
+                                    CustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
                               
-                                    
-                                    
-                                    
-                                    
-                                    File fileBill = new File("Bill(1).txt");
-                                    FileWriter fileBillWrite = new FileWriter(fileBill.getName(),true);
-                                    PrintWriter printBillWrite=new PrintWriter(fileBillWrite);
-                                    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-                                    Date date = new Date();
-                                    
-                                    printBillWrite.println("Date and Time :" + dateFormat.format(date));
-                                    printBillWrite.println("\nItemized bill for customized floral arrangement\n");
-                                    printBillWrite.printf("|%-40s :%-42s|\n","Flower Arrangement Style","Price");
-                                    printBillWrite.println("\n");
-                                    printBillWrite.println("\n==========================================================================================\n");
-                                    printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(0).substring(0, CustomizedFlowerOrder.get(0).indexOf("|")),CustomizedFlowerOrder.get(0).substring( CustomizedFlowerOrder.get(0).indexOf("|")+1, CustomizedFlowerOrder.get(0).length()));
-                                    printBillWrite.println("\n");
-                                    printBillWrite.println("=======================================");
-                                    printBillWrite.println("Flower Arrangement Size");
-                                    printBillWrite.println("=======================================");
-                                    printBillWrite.println("\n");
-                                    printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(1).substring(0, CustomizedFlowerOrder.get(1).indexOf("|")),CustomizedFlowerOrder.get(1).substring( CustomizedFlowerOrder.get(1).indexOf("|")+1, CustomizedFlowerOrder.get(1).length()));
-                                    printBillWrite.println("\n");
-                                   
-                                     printBillWrite.println("=======================================");
-                                    printBillWrite.println("Selected Flower");
-                                    printBillWrite.println("=======================================");
-                                    for(int i=0;i<ChosenFlower.size();i++)
-                                    {
-                                        printBillWrite.println("\n");
-                                        printBillWrite.printf("|%-40s :RM %40s|\n",ChosenFlower.get(i).substring(0, ChosenFlower.get(i).indexOf("|")),ChosenFlower.get(i).substring( ChosenFlower.get(i).indexOf("|")+1, ChosenFlower.get(i).length()));
-                                        printBillWrite.println("\n");
-                                    }
-                                    
-                                    printBillWrite.println("=======================================");
-                                    printBillWrite.println("Selected Accessories");
-                                    printBillWrite.println("=======================================");
-                                     for(int i=0;i<ChosenAccessories.size();i++)
-                                    {
-                                        printBillWrite.println("\n");
-                                        printBillWrite.printf("|%-40s :RM %40s|\n",ChosenAccessories.get(i).substring(0, ChosenAccessories.get(i).indexOf("|")),ChosenAccessories.get(i).substring( ChosenAccessories.get(i).indexOf("|")+1, ChosenAccessories.get(i).length()));
-                                        printBillWrite.println("\n");
-                                    }
-                                    
-                                    printBillWrite.println("=======================================");
-                                    printBillWrite.println("Delivery Priority");
-                                    printBillWrite.println("=======================================");
-                                    printBillWrite.println("\n");
-                                    printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
-                                    printBillWrite.println("\n");
-                                    printBillWrite.println("\n==========================================================================================\n");
-                                    printBillWrite.printf("|%-40s :RM %40s|\n","Total Amount",totalAmount);
-                                    printBillWrite.println("\n");
-                                    printBillWrite.flush();
-                                    printBillWrite.close();
+                                    generateCustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
+                                    CustomizedFlowerOrder.clear();
+                                    ChosenFlower.clear();
+                                    ChosenAccessories.clear();
                                    break;
                     }
                     }while(ConsumerInput!=0);
@@ -199,6 +127,83 @@
 
         }while(loginInput!=0); 
 
+    }
+
+    private static void generateCustomizedBill(ArrayList<String> CustomizedFlowerOrder, ArrayList<String> ChosenFlower, ArrayList<String> ChosenAccessories) throws IOException {
+        File fileBill = new File("Bill.txt");
+        FileWriter fileBillWrite = new FileWriter(fileBill.getName(),true);
+        PrintWriter printBillWrite=new PrintWriter(fileBillWrite);
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
+        printBillWrite.println("Date and Time :" + dateFormat.format(date));
+        printBillWrite.println("\nItemized bill for customized floral arrangement\n");
+        printBillWrite.printf("|%-40s :%-42s|\n","Flower Arrangement Style","Price");
+        printBillWrite.println("\n");
+        printBillWrite.println("\n==========================================================================================\n");
+        printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(0).substring(0, CustomizedFlowerOrder.get(0).indexOf("|")),CustomizedFlowerOrder.get(0).substring( CustomizedFlowerOrder.get(0).indexOf("|")+1, CustomizedFlowerOrder.get(0).length()));
+        printBillWrite.println("\n");
+        printBillWrite.println("=======================================");
+        printBillWrite.println("Flower Arrangement Size");
+        printBillWrite.println("=======================================");
+        printBillWrite.println("\n");
+        printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(1).substring(0, CustomizedFlowerOrder.get(1).indexOf("|")),CustomizedFlowerOrder.get(1).substring( CustomizedFlowerOrder.get(1).indexOf("|")+1, CustomizedFlowerOrder.get(1).length()));
+        printBillWrite.println("\n");
+        printBillWrite.println("=======================================");
+        printBillWrite.println("Selected Flower");
+        printBillWrite.println("=======================================");
+        for(int i=0;i<ChosenFlower.size();i++)
+        {
+            printBillWrite.println("\n");
+            printBillWrite.printf("|%-40s :RM %40s|\n",ChosenFlower.get(i).substring(0, ChosenFlower.get(i).indexOf("|")),ChosenFlower.get(i).substring( ChosenFlower.get(i).indexOf("|")+1, ChosenFlower.get(i).length()));
+            printBillWrite.println("\n");
+        }
+        printBillWrite.println("=======================================");
+        printBillWrite.println("Selected Accessories");
+        printBillWrite.println("=======================================");
+        for(int i=0;i<ChosenAccessories.size();i++)
+        {
+            printBillWrite.println("\n");
+            printBillWrite.printf("|%-40s :RM %40s|\n",ChosenAccessories.get(i).substring(0, ChosenAccessories.get(i).indexOf("|")),ChosenAccessories.get(i).substring( ChosenAccessories.get(i).indexOf("|")+1, ChosenAccessories.get(i).length()));
+            printBillWrite.println("\n");
+        }
+        printBillWrite.println("=======================================");
+        printBillWrite.println("Delivery Priority");
+        printBillWrite.println("=======================================");
+        printBillWrite.println("\n");
+        printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
+        printBillWrite.println("\n");
+        printBillWrite.println("\n==========================================================================================\n");
+        printBillWrite.printf("|%-40s :RM %40s|\n","Total Amount",totalAmount);
+        printBillWrite.println("\n");
+        printBillWrite.flush();
+        printBillWrite.close();
+        return;
+    }
+
+    private static void CustomizedBill(ArrayList<String> CustomizedFlowerOrder, ArrayList<String> ChosenFlower, ArrayList<String> ChosenAccessories) {
+        System.out.println("\nItemized bill for customized floral arrangement\n");
+        System.out.printf("|%-40s :%-42s|\n","Flower Arrangement Style","Price");
+        System.out.println("==========================================================================================");
+        System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(0).substring(0, CustomizedFlowerOrder.get(0).indexOf("|")),CustomizedFlowerOrder.get(0).substring( CustomizedFlowerOrder.get(0).indexOf("|")+1, CustomizedFlowerOrder.get(0).length()));
+        System.out.println("\n=======================================\nFlower Arrangement Size\n=======================================");
+        System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(1).substring(0, CustomizedFlowerOrder.get(1).indexOf("|")),CustomizedFlowerOrder.get(1).substring( CustomizedFlowerOrder.get(1).indexOf("|")+1, CustomizedFlowerOrder.get(1).length()));
+        System.out.println("\n=======================================\nSelected Flower\n=======================================");
+        for(int i=0;i<ChosenFlower.size();i++)
+        {
+            
+            System.out.printf("|%-40s :RM %40s|\n",ChosenFlower.get(i).substring(0, ChosenFlower.get(i).indexOf("|")),ChosenFlower.get(i).substring( ChosenFlower.get(i).indexOf("|")+1, ChosenFlower.get(i).length()));
+        }
+        System.out.println("\n=======================================\nSelected Accessories\n=======================================");
+        for(int i=0;i<ChosenAccessories.size();i++)
+        {
+            
+            System.out.printf("|%-40s :RM %40s|\n",ChosenAccessories.get(i).substring(0, ChosenAccessories.get(i).indexOf("|")),ChosenAccessories.get(i).substring( ChosenAccessories.get(i).indexOf("|")+1, ChosenAccessories.get(i).length()));
+            
+        }
+        System.out.println("\n=======================================\nDelivery Priority\n=======================================");
+        System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
+        System.out.println("\n==========================================================================================");
+        System.out.printf("|%-40s :RM %40s|\n","Total Amount",totalAmount);
     }
      public static void login()
     {
@@ -285,8 +290,8 @@
    }
 
     public static String CustomizedFlowerArrangementsStyle() throws Exception{
-        ArrayList<String> ArrayStyle = new ArrayList<String>();
-        ArrayList<Double> ArrayStylePrice = new ArrayList<Double>();
+        ArrayList<String> ArrayStyle = new ArrayList<>();
+        ArrayList<Double> ArrayStylePrice = new ArrayList<>();
         int CusFlowerStyle;
         int i;
          Scanner UserInput=new Scanner(System.in);
@@ -343,8 +348,8 @@
 
     }
     public static String CustomizedFlowerSize() throws Exception{
-         ArrayList<String> ArrayFlowerSize = new ArrayList<String>();
-         ArrayList<Double> ArrayFlowerSizePrice = new ArrayList<Double>();
+         ArrayList<String> ArrayFlowerSize = new ArrayList<>();
+         ArrayList<Double> ArrayFlowerSizePrice = new ArrayList<>();
         int CusFlowerSize,i;
          Scanner UserInput=new Scanner(System.in);
         
@@ -398,10 +403,9 @@
 
     }
     public static ArrayList<String> CustomizedFlowerSelection() throws Exception{
-        ArrayList<String> ArrayFlower = new ArrayList<String>();
-        ArrayList<String> FlowerChosen = new ArrayList<String>();
-        ArrayList<Integer> repeatChosen = new ArrayList<Integer>();
-        ArrayList<Double> ArrayFlowerPrice = new ArrayList<Double>();
+        ArrayList<String> ArrayFlower = new ArrayList<>();
+        ArrayList<String> FlowerChosen = new ArrayList<>();
+        ArrayList<Double> ArrayFlowerPrice = new ArrayList<>();
         int CusFlower = 0,AddOnFlower,count=0,i;
          Scanner UserInput=new Scanner(System.in);
        
@@ -455,7 +459,7 @@
                 System.out.println("\nNumber that you enter out of range\n");
             }
          }while(CusFlower<=0||CusFlower>i+1);
-        repeatChosen.add(CusFlower-1);
+        
         
         totalAmount+=ArrayFlowerPrice.get(CusFlower-1);
         FlowerChosen.add(ArrayFlower.get(CusFlower-1) +"|"+ ArrayFlowerPrice.get(CusFlower-1));
@@ -490,9 +494,9 @@
     }
     public static ArrayList<String> CustomizedAccessoriesSelection()throws Exception{
         
-        ArrayList<String> ArrayFlowerAccessories = new ArrayList<String>();
-        ArrayList<String> AccessoriesChosen = new ArrayList<String>();
-        ArrayList<Double> ArrayFlowerAccessoriesPrice = new ArrayList<Double>();
+        ArrayList<String> ArrayFlowerAccessories = new ArrayList<>();
+        ArrayList<String> AccessoriesChosen = new ArrayList<>();
+        ArrayList<Double> ArrayFlowerAccessoriesPrice = new ArrayList<>();
         int CusFlowerAccessories,AddOnAccessories,count=0,i;
          Scanner UserInput=new Scanner(System.in);
        
