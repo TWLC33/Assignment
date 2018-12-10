@@ -30,66 +30,40 @@
         ArrayList<String> ChosenFlower = new ArrayList<>();
         ArrayList<String> ChosenAccessories = new ArrayList<>();
         Scanner UserInput=new Scanner(System.in);
-        int loginInput;
+        int loginInput = 0;
        
         
         do{
             do{
                 
                 login();
-                while(!UserInput.hasNextInt())
-                {
-                     System.out.println("input invalid(not a number),please enter a number");
-                     UserInput.next();
-                }
-                loginInput=UserInput.nextInt();
-                if(loginInput<0)
-                {
-                    System.out.println("Enter positive number");
-                }
+                loginInput=validate(UserInput, loginInput);
             }while(loginInput<0);
             
         switch(loginInput){
             case 1: System.out.println("Staff only");
-                    int StaffInput;
+                    int StaffInput = 0;
                     do{
                         do{
                             StaffMenu();
-                            while(!UserInput.hasNextInt())
-                             {
-                                System.out.println("input invalid(not a number),please enter a number");
-                                UserInput.next();
-                             }
-                            StaffInput = UserInput.nextInt();
-                            if(StaffInput <0)
-                            {
-                                System.out.println("Enter positive number");
-                            }
+                            StaffInput = validate(UserInput, StaffInput);
                         }while(StaffInput<0);
                     }while(StaffInput!=0);
                     break;
             case 2: System.out.println("customer only");
 
-                    int ConsumerInput;
+                    int ConsumerInput = 0;
                     do{
                         do{
                             ConsumerMenu();
-                          while(!UserInput.hasNextInt())
-                            {
-                                 System.out.println("input invalid(not a number),please enter a number");
-                                 UserInput.next();
-                            }
-                            ConsumerInput = UserInput.nextInt();
-                            if(ConsumerInput <0)
-                            {
-                                System.out.println("Enter positive number");
-                            }
+                            ConsumerInput = validate(UserInput, ConsumerInput);
                         }while(ConsumerInput<0);
                     switch(ConsumerInput){
                         case 1: System.out.println("Catalog order");
 
                                 break;
                         case 2: System.out.println("\n\n==============================\n customized floral arrangement\n====================================");
+                        
                                     //customize style
                                     String ChosenStyle=CustomizedFlowerArrangementsStyle();
                                     CustomizedFlowerOrder.add(ChosenStyle);
@@ -108,10 +82,18 @@
 //                                    Delivery priority
                                     String ChosenDeliveryPriority = CustomizedDeliveryPriority();
                                     CustomizedFlowerOrder.add(ChosenDeliveryPriority);
+                                    System.out.print("Enter 1 to complete, 2 to abandon :");
+                                    ConsumerInput = validate(UserInput, ConsumerInput);
                                     
+                                   if(ConsumerInput==1){
                                     CustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
-                              
                                     generateCustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
+                                    
+                                   }
+                                   else
+                                   {
+                                       System.out.println("You have been abandon your customized flower order!!!");
+                                   };
                                     CustomizedFlowerOrder.clear();
                                     ChosenFlower.clear();
                                     ChosenAccessories.clear();
@@ -126,6 +108,21 @@
 
         }while(loginInput!=0); 
 
+    }
+
+    public static int validate(Scanner UserInput, int loginInput) {
+        while(!UserInput.hasNextInt())
+        {
+            System.out.println("input invalid(not a number),please enter a number");
+            UserInput.next();
+        }
+        loginInput=UserInput.nextInt();
+        if(loginInput<0)
+        {
+            System.out.println("Enter positive number");
+        }
+        
+        return loginInput;
     }
 
     private static void generateCustomizedBill(ArrayList<String> CustomizedFlowerOrder, ArrayList<String> ChosenFlower, ArrayList<String> ChosenAccessories) throws IOException {
@@ -416,7 +413,6 @@
     	inputCusFlower.useDelimiter(",");
         
        
-        
  
     	
         while(inputCusFlower.hasNext()){
