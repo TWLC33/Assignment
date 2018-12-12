@@ -55,7 +55,6 @@ public class Menu {
 
     }
 
-
     public static void Register() throws Exception {
         String RUserName;
         String RIC;
@@ -321,5 +320,6 @@ public class Menu {
 
         }
     }
+    
 
 }
