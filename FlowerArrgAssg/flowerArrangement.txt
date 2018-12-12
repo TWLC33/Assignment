@@ -1,0 +1,8 @@
+Elliptical flower arrangement,17.00,
+Vertical flower arrangement,17.50,
+Horizontal flower arrangement,18.00,
+Triangular flower arrangement,18.50,
+Crescent flower arrangement,19.00,
+'S' shaped flower arrangement,19.50,
+Oval shaped flower arrangement,20.00,
+Cascade flower arrangement,20.50,
