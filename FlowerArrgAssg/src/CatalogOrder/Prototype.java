@@ -1,6 +1,8 @@
 package CatalogOrder;
 
+import java.io.BufferedReader;
 import java.io.File;
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.PrintWriter;
 import java.util.Scanner;
@@ -18,7 +20,7 @@ public class Prototype {
             //initialize value for productDetails
             productDetails[0] = new Product("P1","Fresh Flowers", 9.00);
             productDetails[1] = new Product("P2","Bouquests", 99.00);
-            productDetails[2] = new Product("P3","Floral Arrangement", 499.00);
+            productDetails[2] = new Product("P3","Floral Arrangement", 499.00);         
         }
     
     public static void main(String[] args) throws Exception {
@@ -26,6 +28,7 @@ public class Prototype {
         
         initValue();
         productMenu();
+
     }
    
      public static void productMenu() throws Exception
@@ -34,7 +37,7 @@ public class Prototype {
     	System.out.println("Catalog Order");
     	System.out.println("Choose options below: ");
     	System.out.println("1. Product Transactions");
-    	System.out.println("2. Pick up");
+    	System.out.println("2. Corporate Customer");
     	System.out.println("3. Back to Main Menu");
     	System.out.println("4. Exit Program");
     	
@@ -46,7 +49,7 @@ public class Prototype {
     				selectProduct();
     				break;
     			case 2:
-                                pickUp();
+                                corporateCust();
     				break;
                         case 3:
     				System.out.println("\n\nGoing back to Main Menu...\n\n");
@@ -96,29 +99,100 @@ public class Prototype {
                         double qtyValue = Payment.calQuantity(qty , productPrice);
                         total += qtyValue;
      			System.out.println("Product Price : RM" + productPrice + "\nPayment Amount : RM" + String.format("%.2f", qtyValue) + 
-                                            "\nTotal Payment Amount" + String.format("%.2f", total));
+                                            "\nTotal Payment Amount : RM" + String.format("%.2f", total));
      			System.out.println("Success");
-                       
-                        File fileProduct= new File("Payment.txt");
-                        FileWriter fileWriterP = new FileWriter(fileProduct.getName(),true);
-                        PrintWriter printWriterP = new PrintWriter(fileWriterP);
-                        printWriterP.println(proId+","+qty+","+productPrice+","+qtyValue+","+total+",");
-                        printWriterP.flush();
-                        printWriterP.close();
+                        
+                        System.out.println("Please select your pick up date: ");
+                        String date = input.nextLine();
+                        System.out.println("Please enter the address that you want to deliver to : ");
+                        String address = input.nextLine();
+                        
+                        File filePickup= new File("Pickup.txt");
+                        FileWriter fileWriterPU = new FileWriter(filePickup.getName(),true);
+                        PrintWriter printWriterPU = new PrintWriter(fileWriterPU);
+                        printWriterPU.println(proId+","+qty+","+productPrice+","+qtyValue+","+total+","+date+","+address+",");
+                        printWriterPU.flush();
+                        printWriterPU.close();
                         
                         productMenu();
      		}
                 proError++;
-                if(proError>0)
+                if(proError==1&&proError==2)
                 {
                     System.out.println("Choose your Product ID: ");
                 }
         }while (proError!=0);     		
     }
     
-    public static void pickUp(){
+    public static void corporateCust() throws Exception{
         
+        
+        ArrayList<String> list=new ArrayList<String>();
+        BufferedReader in = new BufferedReader(new FileReader("Balance.txt"));
+                            
+                        
+                        String line;
+                        while((line = in.readLine()) != null)
+                        {
+                            System.out.println(line);
+                            list.add(line);                           
+                        }
+                        in.close();
+        
+    System.out.println("Your Monthly Credit Limit still have RM" + Double.parseDouble(list.get(list.size()-1)));
+        System.out.println("ID  Product");
+     		
+     	for(int i = 0 ; i < productDetails.length ; i++){
+     		System.out.println(productDetails[i].getProductCode() + "  " + productDetails[i].getProductDesc());
+     	}
+        
+     	Product product = null;
+     	int proError = 0;
+                
+        input.nextLine();
+        System.out.println("Choose your Product ID: ");
+
+            String proId = input.nextLine();
+     	
+             	for(int i = 0 ; i < productDetails.length ; i++){
+                    if(productDetails[i].getProductCode().equals(proId)){
+     			proError = 0;			
+                        product = productDetails[i];
+     			break;
+                    }
+                }
+     		
+                        System.out.println("Quantity : ");
+     			int qty = input.nextInt();
+                        double productPrice = product.getProductPrice();
+                        double qtyValue = Payment.calQuantity(qty , productPrice);
+                        total += qtyValue;
+     			System.out.println("Product Price : RM" + productPrice + "\nPayment Amount : RM" + String.format("%.2f", qtyValue) + 
+                                            "\nTotal Payment Amount : RM" + String.format("%.2f", total));
+                        
+                        double u = Double.parseDouble(list.get(list.size()-1));
+                        double balance = u - qtyValue;
+                        if(balance < qtyValue){
+                            System.out.println("Your monthly credit limit is not enough to pay!!!");
+                        }else{
+                            System.out.println("Your Balance for Monthly Credit Limit is RM" + String.format("%.2f",balance));
+                            System.out.println("Thank You");
+                        }                        
+                        File fileBalance= new File("Balance.txt");
+                        FileWriter fileWriterB = new FileWriter(fileBalance.getName(),true);
+                        PrintWriter printWriterB = new PrintWriter(fileWriterB);
+                        printWriterB.println(balance);
+                        printWriterB.flush();
+                        printWriterB.close();
+
+                
+                System.out.println(list.get(list.size()));
+                
+                proError++;
+                if(proError==1&&proError==2)
+                {
+                    System.out.println("Choose your Product ID: ");
+                }
+    	
     }
 }
-    
-
