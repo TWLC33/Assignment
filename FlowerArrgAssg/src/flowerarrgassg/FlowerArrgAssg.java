@@ -48,6 +48,16 @@
                             StaffMenu();
                             StaffInput = validate(UserInput, StaffInput);
                         }while(StaffInput<0);
+                         switch(StaffInput){
+                            case 1: flowerarrgassg.CatalogMaintenance.CatalogMaintenanceMain();
+                            break;
+                            
+                            case 2: Menu.Menu.Consumer();
+                            break;
+                            
+                            case 3: invoice.Invoice.Invoice();
+                            break;
+                        }
                     }while(StaffInput!=0);
                     break;
             case 2: System.out.println("customer only");
@@ -58,16 +68,7 @@
                             ConsumerMenu();
                             ConsumerInput = validate(UserInput, ConsumerInput);
                         }while(ConsumerInput<0);
-                        switch(ConsumerInput){
-                            case 1: flowerarrgassg.CatalogMaintenance.CatalogMaintenanceMain();
-                            break;
-                            
-                            case 2: Menu.Menu.Consumer();
-                            break;
-                            
-                            case 3: invoice.Invoice.Invoice();
-                            break;
-                        }
+                       
                     switch(ConsumerInput){
                         case 1: System.out.println("Catalog order");
                                         CatalogOrder.Prototype.CatalogOrder();
