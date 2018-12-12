@@ -23,7 +23,7 @@ public class Prototype {
             productDetails[2] = new Product("P3","Floral Arrangement", 499.00);         
         }
     
-    public static void main(String[] args) throws Exception {
+    public static void CatalogOrder() throws Exception {
         // TODO code application logic here
         
         initValue();
@@ -56,7 +56,7 @@ public class Prototype {
     				return;
                         case 4:
                                 System.out.println("\n\nTerminating program...");
-    				System.exit(0);
+    				
     				break;
     			default:
     				System.out.println("\n\nError !!! NO this option !!!");

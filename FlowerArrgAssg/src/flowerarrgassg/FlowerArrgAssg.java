@@ -58,9 +58,19 @@
                             ConsumerMenu();
                             ConsumerInput = validate(UserInput, ConsumerInput);
                         }while(ConsumerInput<0);
+                        switch(ConsumerInput){
+                            case 1: flowerarrgassg.CatalogMaintenance.CatalogMaintenanceMain();
+                            break;
+                            
+                            case 2: Menu.Menu.Consumer();
+                            break;
+                            
+                            case 3: invoice.Invoice.Invoice();
+                            break;
+                        }
                     switch(ConsumerInput){
                         case 1: System.out.println("Catalog order");
-
+                                        CatalogOrder.Prototype.CatalogOrder();
                                 break;
                         case 2: System.out.println("\n\n==============================\n customized floral arrangement\n====================================");
                         
@@ -217,8 +227,8 @@
     public static void StaffMenu(){
         System.out.println("====\nStaff Menu\n====");
         System.out.println("1.Catalog Maintenance");
-        System.out.println("2.Customer Maintenance and invoice payment");
-        System.out.println("3.Order pickup and consumer payment management");
+        System.out.println("2.Customer Maintenance");
+        System.out.println("3.Invoice payment");
         System.out.println("0.back");
         System.out.print("Enter a number to select : ");
 

@@ -21,7 +21,7 @@ public class Menu {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
+    public static void Consumer() throws Exception {
         Scanner input = new Scanner(System.in);
         ArrayList<String> ass = new ArrayList<String>();
         int loginSelect;

@@ -15,7 +15,7 @@ public class Invoice {
     /**
      * @param args the command line arguments
      */
-    public static void main(String[] args) throws Exception {
+    public static void Invoice() throws Exception {
         
          Scanner input = new Scanner(System.in);
         ArrayList<String> ass = new ArrayList<String>();

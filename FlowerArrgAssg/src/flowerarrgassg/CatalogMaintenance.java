@@ -9,7 +9,7 @@ public class CatalogMaintenance {
     public static List<Catalog> CatalogList = new ArrayList<>();
     private static int typeInt = 0;
 
-    public static void main(String[] args) {
+    public static void CatalogMaintenanceMain() {
 
         System.out.println("Welcome to Juan Floral Order System!!!");
         System.out.println("1. View Catalog ");
@@ -28,12 +28,12 @@ public class CatalogMaintenance {
                 l = scanner.nextLine();
                 if(l == null){
                 System.out.println("");
-                main(args);
+                CatalogMaintenanceMain();
                 }
                 else
                 {
                 System.out.println("");
-                main(args);
+                CatalogMaintenanceMain();
                 }
             case 2:
                 int k;
@@ -43,7 +43,7 @@ public class CatalogMaintenance {
                     k = scanner.nextInt();
                 } while (k == 1);
                 System.out.println("");
-                main(args);
+                CatalogMaintenanceMain();
             case 3:
                 int j;
                 do {
@@ -52,11 +52,11 @@ public class CatalogMaintenance {
                     j = scanner.nextInt();
                 } while (j == 1);
                 System.out.println("");
-                main(args);
+                CatalogMaintenanceMain();
             case 4:
                 RemoveProduct();
                 System.out.println("");
-                main(args);
+                CatalogMaintenanceMain();
 
             default:
                 break;
