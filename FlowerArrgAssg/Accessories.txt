@@ -1,0 +1,3 @@
+Grapevine Wreath,10.00,
+Metal Wire Easel,5.00,
+Floral Wire,7.50,
