@@ -10,15 +10,16 @@ package flowerarrgassg;
  *
  * @author Tarc
  */
-public interface ListInterface<D> {
+public interface ListInterface<T> {
     public static final int DEFAULT_SIZE=5;
     
-    void add(D item);
-    void add(D item,int index);
-    D get(int i);
-    int getNumberOfEntries();
+    void add(T item);
+//    void add(T item,int index);
+    T get(int i);
+    int size();
     boolean remove();//remove the first item
     boolean remove(int i);
-    boolean remove(D item);
+//    boolean remove(T item);
     boolean isEmpty();
+//    public String toString();
 }

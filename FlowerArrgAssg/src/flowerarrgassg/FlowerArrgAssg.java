@@ -11,7 +11,6 @@
     import java.io.*;
     import java.text.DateFormat;
     import java.time.Instant;
-    import java.util.ArrayList;
     import java.util.Date;
     import java.text.SimpleDateFormat;
     /**
@@ -24,11 +23,18 @@
      * @param args the command line arguments
      */
     private static Double totalAmount=0.00;
+    private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    private static DateFormat dateFormatDeliveryPriority = new SimpleDateFormat("yyyy/MM/dd");
+    private static Date date = new Date();
     public static void main(String[] args) throws Exception {
         // TODO code application logic here
-        ArrayList<String> CustomizedFlowerOrder = new ArrayList<>();
-        ArrayList<String> ChosenFlower = new ArrayList<>();
-        ArrayList<String> ChosenAccessories = new ArrayList<>();
+        ListInterface<String> CustomizedFlowerOrder = new ArrayList1();
+        ListInterface<String> ChosenFlower = new ArrayList1();
+        ListInterface<String> ChosenAccessories = new ArrayList1();
+        ListInterface<String> DeliveryOrderExpress = new ArrayList1();
+        ListInterface<String> DeliveryOrderNormal = new ArrayList1();
+        ListInterface<String> DeliveryOrderFlexi = new ArrayList1();
+        LinkedInterface<String> DeliveryPriorityList = new linked();
         Scanner UserInput=new Scanner(System.in);
         int loginInput = 0;
        
@@ -49,7 +55,7 @@
                             StaffInput = validate(UserInput, StaffInput);
                         }while(StaffInput<0);
                          switch(StaffInput){
-                            case 1: flowerarrgassg.CatalogMaintenance.CatalogMaintenanceMain();
+                            case 1: catalogMaintenance.CatalogMaintenance.CatalogMaintenanceMain();
                             break;
                             
                             case 2: Menu.Menu.Consumer();
@@ -93,10 +99,75 @@
 //                                    Delivery priority
                                     String ChosenDeliveryPriority = CustomizedDeliveryPriority();
                                     CustomizedFlowerOrder.add(ChosenDeliveryPriority);
-                                    System.out.print("Enter 1 to complete, 2 to abandon :");
+                                    System.out.print("Enter 1 to complete, any number to abandon :");
                                     ConsumerInput = validate(UserInput, ConsumerInput);
                                     
                                    if(ConsumerInput==1){
+                                       
+                                      File FileCusDeliveryPriority= new File("DeliveryPriority.txt");		
+                                       Scanner inputCusDeliveryPriority = new Scanner(FileCusDeliveryPriority);
+    	
+                                       inputCusDeliveryPriority.useDelimiter(",");
+
+                                      while(inputCusDeliveryPriority.hasNext()){
+                        
+    				
+                                       String CustomerName=inputCusDeliveryPriority.next();
+                                       String DeliveryPriority =inputCusDeliveryPriority.next();
+                                       String OrderDate = inputCusDeliveryPriority.next();
+                                       if(DeliveryPriority.compareTo("express (highest priority)")==0)
+                                       {
+                                           DeliveryOrderExpress.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
+                                       }else if(DeliveryPriority.compareTo("normal")==0)
+                                       {
+                                           DeliveryOrderNormal.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
+                                       }else
+                                       {
+                                           DeliveryOrderFlexi.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
+                                       }
+                                       String next = inputCusDeliveryPriority.nextLine();
+    			
+    					
+                                      }
+                                      if(CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")).compareTo("express (highest priority)")==0)
+                                      {
+                                          DeliveryOrderExpress.add("Tam Yew Wah"+","+"express (highest priority)"+","+dateFormatDeliveryPriority.format(date)+",");
+                                         
+                                      }
+                                      else if(CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")).compareTo("normal")==0)
+                                      {
+                                          DeliveryOrderNormal.add("Liew Yih Chan"+","+"normal"+","+dateFormatDeliveryPriority.format(date)+",");
+                                      }
+                                      else
+                                      {
+                                          DeliveryOrderFlexi.add("Wai Zhen Hao"+","+"flexi (lowest priority)"+","+dateFormatDeliveryPriority.format(date)+",");
+                                      }
+                                      PrintWriter Write=new PrintWriter(FileCusDeliveryPriority);
+                                      Write.print("");
+                                      Write.flush();
+                                      Write.close();
+                                      FileWriter fileDeliveryPriorityWrite = new FileWriter(FileCusDeliveryPriority.getName(),true);
+                                       PrintWriter printDeliveryPriorityWrite=new PrintWriter(fileDeliveryPriorityWrite);
+                                       for(int i=0;i<DeliveryOrderExpress.size();i++)
+                                       {
+                                           DeliveryPriorityList.addRear(DeliveryOrderExpress.get(i));
+                                           
+                                       }
+                                       for(int i=0;i<DeliveryOrderNormal.size();i++)
+                                       {
+                                       DeliveryPriorityList.addRear(DeliveryOrderNormal.get(i));
+                                       }
+                                        for(int i=0;i<DeliveryOrderFlexi.size();i++)
+                                       {
+                                       DeliveryPriorityList.addRear(DeliveryOrderFlexi.get(i));
+                                       }
+                                        while(!DeliveryPriorityList.isEmpty())
+                                        {
+                                       printDeliveryPriorityWrite.println(DeliveryPriorityList.removeFront());
+                                        }
+                                      
+                                    printDeliveryPriorityWrite.flush();
+                                    printDeliveryPriorityWrite.close();
                                     CustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
                                     generateCustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
                                     
@@ -105,9 +176,13 @@
                                    {
                                        System.out.println("You have been abandon your customized flower order!!!");
                                    };
-                                    CustomizedFlowerOrder.clear();
-                                    ChosenFlower.clear();
-                                    ChosenAccessories.clear();
+                                   totalAmount=0.00;
+                                    CustomizedFlowerOrder.remove();
+                                   DeliveryOrderExpress.remove();
+                                   DeliveryOrderNormal.remove();
+                                   DeliveryOrderFlexi.remove();
+                                    ChosenFlower.remove();
+                                    ChosenAccessories.remove();
                                    break;
                     }
                     }while(ConsumerInput!=0);
@@ -136,12 +211,11 @@
         return loginInput;
     }
 
-    private static void generateCustomizedBill(ArrayList<String> CustomizedFlowerOrder, ArrayList<String> ChosenFlower, ArrayList<String> ChosenAccessories) throws IOException {
+    private static void generateCustomizedBill(ListInterface<String> CustomizedFlowerOrder, ListInterface<String> ChosenFlower, ListInterface<String> ChosenAccessories) throws IOException {
         File fileBill = new File("Tam Yew Wah.txt");
         FileWriter fileBillWrite = new FileWriter(fileBill.getName(),true);
         PrintWriter printBillWrite=new PrintWriter(fileBillWrite);
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-        Date date = new Date();
+        
         printBillWrite.println("Customer Name : Tam Yew Wah");
         printBillWrite.println("Date and Time :" + dateFormat.format(date));
         printBillWrite.println("\nItemized bill for customized floral arrangement\n");
@@ -188,7 +262,10 @@
         return;
     }
 
-    private static void CustomizedBill(ArrayList<String> CustomizedFlowerOrder, ArrayList<String> ChosenFlower, ArrayList<String> ChosenAccessories) {
+    private static void CustomizedBill(ListInterface<String> CustomizedFlowerOrder, ListInterface<String> ChosenFlower, ListInterface<String> ChosenAccessories) {
+        
+        System.out.println("Customer Name : Tam Yew Wah");
+        System.out.println("Date and Time :" + dateFormat.format(date));
         System.out.println("\nItemized bill for customized floral arrangement\n");
         System.out.printf("|%-40s :%-42s|\n","Flower Arrangement Style","Price");
         System.out.println("==========================================================================================");
@@ -247,8 +324,8 @@
        
    public static String CustomizedDeliveryPriority() throws Exception
    {
-        ArrayList<String> ArrayDeliveryPriority = new ArrayList<String>();
-        ArrayList<Double> ArrayDeliveryPriorityPrice = new ArrayList<Double>();
+        ListInterface<String> ArrayDeliveryPriority = new ArrayList1();
+        ListInterface<Double> ArrayDeliveryPriorityPrice = new ArrayList1();
         int CusDeliveryPrority;
         int i;
          Scanner UserInput=new Scanner(System.in);
@@ -296,11 +373,12 @@
         totalAmount+=ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
         
         return ArrayDeliveryPriority.get(CusDeliveryPrority-1) +"|"+ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
+   
    }
 
     public static String CustomizedFlowerArrangementsStyle() throws Exception{
-        ArrayList<String> ArrayStyle = new ArrayList<>();
-        ArrayList<Double> ArrayStylePrice = new ArrayList<>();
+        ListInterface<String> ArrayStyle = new ArrayList1();
+        ListInterface<Double> ArrayStylePrice = new ArrayList1();
         int CusFlowerStyle;
         int i;
          Scanner UserInput=new Scanner(System.in);
@@ -357,8 +435,8 @@
 
     }
     public static String CustomizedFlowerSize() throws Exception{
-         ArrayList<String> ArrayFlowerSize = new ArrayList<>();
-         ArrayList<Double> ArrayFlowerSizePrice = new ArrayList<>();
+         ListInterface<String> ArrayFlowerSize = new ArrayList1();
+         ListInterface<Double> ArrayFlowerSizePrice = new ArrayList1();
         int CusFlowerSize,i;
          Scanner UserInput=new Scanner(System.in);
         
@@ -411,10 +489,10 @@
 
 
     }
-    public static ArrayList<String> CustomizedFlowerSelection() throws Exception{
-        ArrayList<String> ArrayFlower = new ArrayList<>();
-        ArrayList<String> FlowerChosen = new ArrayList<>();
-        ArrayList<Double> ArrayFlowerPrice = new ArrayList<>();
+    public static ListInterface<String> CustomizedFlowerSelection() throws Exception{
+        ListInterface<String> ArrayFlower = new ArrayList1();
+        ListInterface<String> FlowerChosen = new ArrayList1();
+        ListInterface<Double> ArrayFlowerPrice = new ArrayList1();
         int CusFlower = 0,AddOnFlower,count=0,i,FlowerRemove=0;
          Scanner UserInput=new Scanner(System.in);
        
@@ -534,25 +612,29 @@
          }while(FlowerRemove<-1||FlowerRemove>i+1);
              if(FlowerRemove>0&&FlowerRemove<=FlowerChosen.size())
              {
+                 
                 count--;
+                totalAmount-=Double.parseDouble(FlowerChosen.get(FlowerRemove-1).substring( FlowerChosen.get(FlowerRemove-1).indexOf("|")+1, FlowerChosen.get(FlowerRemove-1).length()));
                 FlowerChosen.remove(FlowerRemove-1);
              }
             }while(FlowerRemove>0&&FlowerRemove<=FlowerChosen.size()+1&&!FlowerChosen.isEmpty());
         }
+        
         if(count==5)
         {
             System.out.println("\nMaximum flower only 5!!!!!\n");
         }
        }while(AddOnFlower>0&&AddOnFlower<3&&FlowerRemove>-1&&count>-1&&count<6);
+        
         return FlowerChosen;
 
 
     }
-    public static ArrayList<String> CustomizedAccessoriesSelection()throws Exception{
+    public static ListInterface<String> CustomizedAccessoriesSelection()throws Exception{
         
-        ArrayList<String> ArrayFlowerAccessories = new ArrayList<>();
-        ArrayList<String> AccessoriesChosen = new ArrayList<>();
-        ArrayList<Double> ArrayFlowerAccessoriesPrice = new ArrayList<>();
+        ListInterface<String> ArrayFlowerAccessories = new ArrayList1();
+        ListInterface<String> AccessoriesChosen = new ArrayList1();
+        ListInterface<Double> ArrayFlowerAccessoriesPrice = new ArrayList1();
         int CusFlowerAccessories,AddOnAccessories,count=0,i,AccessoriesRemove=0;
          Scanner UserInput=new Scanner(System.in);
        
@@ -670,6 +752,7 @@
              if(AccessoriesRemove>0&&AccessoriesRemove<=AccessoriesChosen.size())
              {
                 count--;
+                totalAmount-=Double.parseDouble(AccessoriesChosen.get(AccessoriesRemove-1).substring( AccessoriesChosen.get(AccessoriesRemove-1).indexOf("|")+1, AccessoriesChosen.get(AccessoriesRemove-1).length()));;
                 AccessoriesChosen.remove(AccessoriesRemove-1);
              }
             }while(AccessoriesRemove>0&&AccessoriesRemove<=AccessoriesChosen.size()+1&&!AccessoriesChosen.isEmpty());
