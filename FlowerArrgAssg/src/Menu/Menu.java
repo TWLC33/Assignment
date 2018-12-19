@@ -113,20 +113,34 @@ public class Menu {
         } while (CustomerType != 1 && CustomerType != 2);
 
     }
-    
+    public static int validate(Scanner UserInput, int loginInput) {
+        while(!UserInput.hasNextInt())
+        {
+            System.out.println("input invalid(not a number),please enter a number");
+            UserInput.next();
+        }
+        loginInput=UserInput.nextInt();
+        if(loginInput<0)
+        {
+            System.out.println("Enter positive number");
+        }
+        
+        return loginInput;
+    }
     public static void CustomerMaintain() throws Exception 
     {
-        int CusMaintainSelect;
+        int CusMaintainSelect=0;
         
         do {
         
         Scanner Custmaintain = new Scanner(System.in);
+        
         System.out.println("1. Corporate Customer List ");
         System.out.println("2. Consumer  Customer List ");
         System.out.println("3. Search by IC            ");
         System.out.println("4. EXIT                    ");
         System.out.print("\n Please Enter Your Selection : ");
-        CusMaintainSelect = Custmaintain.nextInt();
+        CusMaintainSelect = validate(Custmaintain, CusMaintainSelect);
             if (CusMaintainSelect == 1 || CusMaintainSelect == 2 || CusMaintainSelect == 3 || CusMaintainSelect == 4) 
                 
             {

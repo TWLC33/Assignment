@@ -17,69 +17,26 @@
     *
     * @author user
     */
-    public class FlowerArrgAssg {
+    public class CustomizedFloral {
 
     /**
      * @param args the command line arguments
      */
     private static Double totalAmount=0.00;
     private static DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
-    private static DateFormat dateFormatDeliveryPriority = new SimpleDateFormat("yyyy/MM/dd");
+    private static DateFormat dateFormatPickUpPriority = new SimpleDateFormat("yyyy/MM/dd");
     private static Date date = new Date();
-    public static void main(String[] args) throws Exception {
+    public static void CustomizedFloral() throws Exception {
         // TODO code application logic here
         ListInterface<String> CustomizedFlowerOrder = new ArrayList1();
         ListInterface<String> ChosenFlower = new ArrayList1();
         ListInterface<String> ChosenAccessories = new ArrayList1();
-        ListInterface<String> DeliveryOrderExpress = new ArrayList1();
-        ListInterface<String> DeliveryOrderNormal = new ArrayList1();
-        ListInterface<String> DeliveryOrderFlexi = new ArrayList1();
-        LinkedInterface<String> DeliveryPriorityList = new linked();
+        ListInterface<String> PickUpOrderExpress = new ArrayList1();
+        ListInterface<String> PickUpOrderNormal = new ArrayList1();
+        ListInterface<String> PickUpOrderFlexi = new ArrayList1();
+        LinkedInterface<String> PickUpPriorityList = new linked();
         Scanner UserInput=new Scanner(System.in);
-        int loginInput = 0;
-       
-        
-        do{
-            do{
-                
-                login();
-                loginInput=validate(UserInput, loginInput);
-            }while(loginInput<0);
-            
-        switch(loginInput){
-            case 1: System.out.println("Staff only");
-                    int StaffInput = 0;
-                    do{
-                        do{
-                            StaffMenu();
-                            StaffInput = validate(UserInput, StaffInput);
-                        }while(StaffInput<0);
-                         switch(StaffInput){
-                            case 1: catalogMaintenance.CatalogMaintenance.CatalogMaintenanceMain();
-                            break;
-                            
-                            case 2: Menu.Menu.Consumer();
-                            break;
-                            
-                            case 3: invoice.Invoice.Invoice();
-                            break;
-                        }
-                    }while(StaffInput!=0);
-                    break;
-            case 2: System.out.println("customer only");
-
-                    int ConsumerInput = 0;
-                    do{
-                        do{
-                            ConsumerMenu();
-                            ConsumerInput = validate(UserInput, ConsumerInput);
-                        }while(ConsumerInput<0);
-                       
-                    switch(ConsumerInput){
-                        case 1: System.out.println("Catalog order");
-                                        CatalogOrder.Prototype.CatalogOrder();
-                                break;
-                        case 2: System.out.println("\n\n==============================\n customized floral arrangement\n====================================");
+         int ConsumerInput=0;
                         
                                     //customize style
                                     String ChosenStyle=CustomizedFlowerArrangementsStyle();
@@ -96,78 +53,78 @@
                                     //customize Accessories
                                     ChosenAccessories=CustomizedAccessoriesSelection();
                                
-//                                    Delivery priority
-                                    String ChosenDeliveryPriority = CustomizedDeliveryPriority();
-                                    CustomizedFlowerOrder.add(ChosenDeliveryPriority);
+//                                    PickUp priority
+                                    String ChosenPickUpPriority = CustomizedPickUpPriority();
+                                    CustomizedFlowerOrder.add(ChosenPickUpPriority);
                                     System.out.print("Enter 1 to complete, any number to abandon :");
                                     ConsumerInput = validate(UserInput, ConsumerInput);
                                     
                                    if(ConsumerInput==1){
                                        
-                                      File FileCusDeliveryPriority= new File("DeliveryPriority.txt");		
-                                       Scanner inputCusDeliveryPriority = new Scanner(FileCusDeliveryPriority);
+                                      File FileCusPickUpPriority= new File("PickUpPriority.txt");		
+                                       Scanner inputCusPickUpPriority = new Scanner(FileCusPickUpPriority);
     	
-                                       inputCusDeliveryPriority.useDelimiter(",");
+                                       inputCusPickUpPriority.useDelimiter(",");
 
-                                      while(inputCusDeliveryPriority.hasNext()){
+                                      while(inputCusPickUpPriority.hasNext()){
                         
     				
-                                       String CustomerName=inputCusDeliveryPriority.next();
-                                       String DeliveryPriority =inputCusDeliveryPriority.next();
-                                       String OrderDate = inputCusDeliveryPriority.next();
-                                       if(DeliveryPriority.compareTo("express (highest priority)")==0)
+                                       String CustomerName=inputCusPickUpPriority.next();
+                                       String PickUpPriority =inputCusPickUpPriority.next();
+                                       String OrderDate = inputCusPickUpPriority.next();
+                                       if(PickUpPriority.compareTo("express (highest priority)")==0)
                                        {
-                                           DeliveryOrderExpress.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
-                                       }else if(DeliveryPriority.compareTo("normal")==0)
+                                           PickUpOrderExpress.add(CustomerName+","+PickUpPriority+","+OrderDate+",");
+                                       }else if(PickUpPriority.compareTo("normal")==0)
                                        {
-                                           DeliveryOrderNormal.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
+                                           PickUpOrderNormal.add(CustomerName+","+PickUpPriority+","+OrderDate+",");
                                        }else
                                        {
-                                           DeliveryOrderFlexi.add(CustomerName+","+DeliveryPriority+","+OrderDate+",");
+                                           PickUpOrderFlexi.add(CustomerName+","+PickUpPriority+","+OrderDate+",");
                                        }
-                                       String next = inputCusDeliveryPriority.nextLine();
+                                       String next = inputCusPickUpPriority.nextLine();
     			
     					
                                       }
                                       if(CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")).compareTo("express (highest priority)")==0)
                                       {
-                                          DeliveryOrderExpress.add("Tam Yew Wah"+","+"express (highest priority)"+","+dateFormatDeliveryPriority.format(date)+",");
+                                          PickUpOrderExpress.add("Tam Yew Wah"+","+"express (highest priority)"+","+dateFormatPickUpPriority.format(date)+",");
                                          
                                       }
                                       else if(CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")).compareTo("normal")==0)
                                       {
-                                          DeliveryOrderNormal.add("Liew Yih Chan"+","+"normal"+","+dateFormatDeliveryPriority.format(date)+",");
+                                          PickUpOrderNormal.add("Liew Yih Chan"+","+"normal"+","+dateFormatPickUpPriority.format(date)+",");
                                       }
                                       else
                                       {
-                                          DeliveryOrderFlexi.add("Wai Zhen Hao"+","+"flexi (lowest priority)"+","+dateFormatDeliveryPriority.format(date)+",");
+                                          PickUpOrderFlexi.add("Wai Zhen Hao"+","+"flexi (lowest priority)"+","+dateFormatPickUpPriority.format(date)+",");
                                       }
-                                      PrintWriter Write=new PrintWriter(FileCusDeliveryPriority);
+                                      PrintWriter Write=new PrintWriter(FileCusPickUpPriority);
                                       Write.print("");
                                       Write.flush();
                                       Write.close();
-                                      FileWriter fileDeliveryPriorityWrite = new FileWriter(FileCusDeliveryPriority.getName(),true);
-                                       PrintWriter printDeliveryPriorityWrite=new PrintWriter(fileDeliveryPriorityWrite);
-                                       for(int i=0;i<DeliveryOrderExpress.size();i++)
+                                      FileWriter filePickUpPriorityWrite = new FileWriter(FileCusPickUpPriority.getName(),true);
+                                       PrintWriter printPickUpPriorityWrite=new PrintWriter(filePickUpPriorityWrite);
+                                       for(int i=0;i<PickUpOrderExpress.size();i++)
                                        {
-                                           DeliveryPriorityList.addRear(DeliveryOrderExpress.get(i));
+                                           PickUpPriorityList.addRear(PickUpOrderExpress.get(i));
                                            
                                        }
-                                       for(int i=0;i<DeliveryOrderNormal.size();i++)
+                                       for(int i=0;i<PickUpOrderNormal.size();i++)
                                        {
-                                       DeliveryPriorityList.addRear(DeliveryOrderNormal.get(i));
+                                       PickUpPriorityList.addRear(PickUpOrderNormal.get(i));
                                        }
-                                        for(int i=0;i<DeliveryOrderFlexi.size();i++)
+                                        for(int i=0;i<PickUpOrderFlexi.size();i++)
                                        {
-                                       DeliveryPriorityList.addRear(DeliveryOrderFlexi.get(i));
+                                       PickUpPriorityList.addRear(PickUpOrderFlexi.get(i));
                                        }
-                                        while(!DeliveryPriorityList.isEmpty())
+                                        while(!PickUpPriorityList.isEmpty())
                                         {
-                                       printDeliveryPriorityWrite.println(DeliveryPriorityList.removeFront());
+                                       printPickUpPriorityWrite.println(PickUpPriorityList.removeFront());
                                         }
                                       
-                                    printDeliveryPriorityWrite.flush();
-                                    printDeliveryPriorityWrite.close();
+                                    printPickUpPriorityWrite.flush();
+                                    printPickUpPriorityWrite.close();
                                     CustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
                                     generateCustomizedBill(CustomizedFlowerOrder, ChosenFlower, ChosenAccessories);
                                     
@@ -178,21 +135,14 @@
                                    };
                                    totalAmount=0.00;
                                     CustomizedFlowerOrder.remove();
-                                   DeliveryOrderExpress.remove();
-                                   DeliveryOrderNormal.remove();
-                                   DeliveryOrderFlexi.remove();
+                                   PickUpOrderExpress.remove();
+                                   PickUpOrderNormal.remove();
+                                   PickUpOrderFlexi.remove();
                                     ChosenFlower.remove();
                                     ChosenAccessories.remove();
-                                   break;
-                    }
-                    }while(ConsumerInput!=0);
-                    break;
-            case 3: System.out.println("Register only");
+                                 
 
-                    break;
-        }
-
-        }while(loginInput!=0); 
+         
 
     }
 
@@ -249,7 +199,7 @@
             printBillWrite.println("\n");
         }
         printBillWrite.println("=======================================");
-        printBillWrite.println("Delivery Priority");
+        printBillWrite.println("PickUp Priority");
         printBillWrite.println("=======================================");
         printBillWrite.println("\n");
         printBillWrite.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
@@ -285,7 +235,7 @@
             System.out.printf("|%-40s :RM %40s|\n",ChosenAccessories.get(i).substring(0, ChosenAccessories.get(i).indexOf("|")),ChosenAccessories.get(i).substring( ChosenAccessories.get(i).indexOf("|")+1, ChosenAccessories.get(i).length()));
             
         }
-        System.out.println("\n=======================================\nDelivery Priority\n=======================================");
+        System.out.println("\n=======================================\nPickUp Priority\n=======================================");
         System.out.printf("|%-40s :RM %40s|\n",CustomizedFlowerOrder.get(2).substring(0, CustomizedFlowerOrder.get(2).indexOf("|")),CustomizedFlowerOrder.get(2).substring( CustomizedFlowerOrder.get(2).indexOf("|")+1, CustomizedFlowerOrder.get(2).length()));
         System.out.println("\n==========================================================================================");
         System.out.printf("|%-40s :RM %40s|\n","Total Amount",totalAmount);
@@ -322,57 +272,57 @@
 
     }
        
-   public static String CustomizedDeliveryPriority() throws Exception
+   public static String CustomizedPickUpPriority() throws Exception
    {
-        ListInterface<String> ArrayDeliveryPriority = new ArrayList1();
-        ListInterface<Double> ArrayDeliveryPriorityPrice = new ArrayList1();
-        int CusDeliveryPrority;
+        ListInterface<String> ArrayPickUpPriority = new ArrayList1();
+        ListInterface<Double> ArrayPickUpPriorityPrice = new ArrayList1();
+        int CusPickUpPrority;
         int i;
          Scanner UserInput=new Scanner(System.in);
         
        
     				
-                        ArrayDeliveryPriority.add("express (highest priority)");
-                        ArrayDeliveryPriorityPrice.add(15.00);
-                        ArrayDeliveryPriority.add("normal");
-                        ArrayDeliveryPriorityPrice.add(10.00);
-                        ArrayDeliveryPriority.add("flexi (lowest priority)");
-                        ArrayDeliveryPriorityPrice.add(5.00);
+                        ArrayPickUpPriority.add("express (highest priority)");
+                        ArrayPickUpPriorityPrice.add(15.00);
+                        ArrayPickUpPriority.add("normal");
+                        ArrayPickUpPriorityPrice.add(10.00);
+                        ArrayPickUpPriority.add("flexi (lowest priority)");
+                        ArrayPickUpPriorityPrice.add(5.00);
                      
     			
     					
     
         do{
-            System.out.printf("\n\nStep 5------Delivery Prority Selection------\n");
+            System.out.printf("\n\nStep 5------PickUp Prority Selection------\n");
             System.out.println("==========================================================================");
             System.out.printf("%-2s | %-30s | %-22s|\n","No","Priority","Price");
             System.out.println("==========================================================================");
-            for(i=0;i<ArrayDeliveryPriority.size();i++){ 
-            System.out.printf("%-2s | %-30s |RM %-20s|\n",i+1,ArrayDeliveryPriority.get(i),ArrayDeliveryPriorityPrice.get(i));
+            for(i=0;i<ArrayPickUpPriority.size();i++){ 
+            System.out.printf("%-2s | %-30s |RM %-20s|\n",i+1,ArrayPickUpPriority.get(i),ArrayPickUpPriorityPrice.get(i));
            
            
             }
-    //        System.out.println("0.back");
+           //System.out.println("0.back");
             System.out.print("\nEnter a number to select : ");
-             while(!UserInput.hasNextInt())
+            while(!UserInput.hasNextInt())
             {
                  System.out.printf("\ninput invalid(not a number),please enter a number :");
-                 UserInput.next();
+                UserInput.next();
             }
-            CusDeliveryPrority = UserInput.nextInt();
-            if(CusDeliveryPrority<=0)
+            CusPickUpPrority =UserInput.nextInt();
+            if(CusPickUpPrority<=0)
             {
                 System.out.println("\nEnter positive number :");
             }
-            else if(CusDeliveryPrority>i+1)
+            else if(CusPickUpPrority>i+1)
             {
                 System.out.println("\nNumber that you enter out of range\n");
             }
-        }while(CusDeliveryPrority<=0||CusDeliveryPrority>i+1);
+        }while(CusPickUpPrority<=0||CusPickUpPrority>i+1);
         
-        totalAmount+=ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
+        totalAmount+=ArrayPickUpPriorityPrice.get(CusPickUpPrority-1);
         
-        return ArrayDeliveryPriority.get(CusDeliveryPrority-1) +"|"+ArrayDeliveryPriorityPrice.get(CusDeliveryPrority-1);
+        return ArrayPickUpPriority.get(CusPickUpPrority-1) +"|"+ArrayPickUpPriorityPrice.get(CusPickUpPrority-1);
    
    }
 
@@ -416,7 +366,7 @@
                  System.out.printf("\ninput invalid(not a number),please enter a number :");
                  UserInput.next();
             }
-            CusFlowerStyle = UserInput.nextInt();
+            CusFlowerStyle =UserInput.nextInt();
             if(CusFlowerStyle<=0)
             {
                 System.out.println("\nEnter positive number\n");
@@ -470,7 +420,7 @@
              while(!UserInput.hasNextInt())
             {
                  System.out.printf("\ninput invalid(not a number),please enter a number :");
-                 UserInput.next();
+               UserInput.next();
             }
             CusFlowerSize = UserInput.nextInt();
             if(CusFlowerSize<=0)
