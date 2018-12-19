@@ -19,10 +19,10 @@ public class Invoice {
         
          Scanner input = new Scanner(System.in);
         ArrayList<String> ass = new ArrayList<String>();
-        int loginSelect;
+        int loginSelect =0;
         do {
             loginSelection();
-            loginSelect = input.nextInt();
+            loginSelect = validate(input,loginSelect); 
 
             if (loginSelect == 1 || loginSelect == 2) {
                 if (loginSelect == 1) 
@@ -38,6 +38,20 @@ public class Invoice {
             }
 
         } while (loginSelect != 1 && loginSelect != 2);
+    }
+    public static int validate(Scanner UserInput, int Input) {
+        while(!UserInput.hasNextInt())
+        {
+            System.out.println("input invalid(not a number),please enter a number");
+            UserInput.next();
+        }
+        Input=UserInput.nextInt();
+        if(Input<0)
+        {
+            System.out.println("Enter positive number");
+        }
+        
+        return Input;
     }
     
     public static void loginSelection() {
